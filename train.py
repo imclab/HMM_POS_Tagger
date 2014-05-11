@@ -12,15 +12,15 @@ import json
 
 class bcolors:
     HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
+    OKBLUE = '\033[36m'
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
 
 def main():
-    # Print awesome intro (Comment this out if you are not on a system that uses ansi escape characters for printing colors
-    print bcolors.OKBLUE + " ___________  __    __    _______      ___      ___   __    ___  ___________  ______    _____  ___      "
+    # Print awesome intro (Comment this out if you are not on a system that uses ansi escape characters for printing colors"
+    print bcolors.ENDC + " ___________  __    __    _______      ___      ___   __    ___  ___________  ______    _____  ___      "
     print bcolors.HEADER + '("     _   ")/" |  | "\\  /"     "|    |"  \\    /"  | |" \\  |"  |("     _   ")/    " \\  (\\"   \\|"  \\     '
     print bcolors.OKBLUE + " )__/  \\__/ (   (__)   )(  ______)     \\    \\  //  | ||  | ||  | )__/  \\\\__/// ____  \\ | \\   \\     |    "
     print bcolors.OKGREEN + "    \\_ /     \\/      \\/  \\/    |       /\\   \\/     | |   | |   |    \\_  /  /  /    )  )|  \\    \\   |    "
