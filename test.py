@@ -14,7 +14,7 @@ import json
 def viterbi(obs, states, start_p, trans_p, emit_p):
     V = [{}]
     path = {}
-
+    lenS = len(states)
     # Initialize base cases (t == 0)
     for y in states:
         # Deal with cases in which no data is stored for the tag of interest
@@ -37,20 +37,32 @@ def viterbi(obs, states, start_p, trans_p, emit_p):
         V.append({})
         newpath = {}
         for y in states:
-            prob = -100000.0
+            prob = -10000.0
             state = states[0]
+
             for y0 in states:
                 # Deal with cases in which no data is stored for the tag of interest
+
+                # If y0 never transitioned to anything in the training set 
+                # (could happen if it was always at the end of the sentence)
                 if y0 not in trans_p:
                     a = -500.0
+                # If y0 never transitioned to y in the training set
                 elif y not in trans_p[y0]:
                     a = -500.0
                 else:
                     a = trans_p[y0][y]
+                # If that tag was never seen.. shouldn't ever happen..
                 if y not in emit_p:
+                    print "Ended up with a tag in 'tags' that was never seen in training.."
+                    print y
                     b = -500.0
+                # If the word was never observed with this tag
                 elif obs[t] not in emit_p[y]:
-                    b = -500.0
+                    if y == "NN" or y == "NNS":
+                        b = -499.0
+                    else
+                        b = -500.0
                 else:
                     b = emit_p[y][obs[t]]
                 c = V[t-1][y0] + a + b
@@ -132,7 +144,7 @@ def main():
     #for i,t in enumerate(words):
     #    t.insert(0, "<s>")  
     #pdb.set_trace()
-    print "LOL"
+
     for s in words:
         prob, path = viterbi(s, tags, startP, trans, emit)
         print s
@@ -141,4 +153,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
