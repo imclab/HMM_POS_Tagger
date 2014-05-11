@@ -116,15 +116,16 @@ def main():
     #        startProb[tag] = -500.0
     del trans["<s>"]   
     
-    for key in emit:
-        summ = 0.0
-        for ley in emit[key]:
-            summ += exp(emit[key][ley])
-        if summ > 1.0:
-            print "WHOA BABY, THE SUM IS BIGGER THAN ONE FOR " + key + " " + str(summ)
-            print summ
-        else:
-            print key + " " + str(summ)
+    # Sanity check: make sure all the probabilities add to one
+    #for key in emit:
+    #    summ = 0.0
+    #    for ley in emit[key]:
+    #        summ += exp(emit[key][ley])
+    #    if summ > 1.0:
+    #        print "WHOA BABY, THE SUM IS BIGGER THAN ONE FOR " + key + " " + str(summ)
+    #        print summ
+    #    else:
+    #        print key + " " + str(summ)
             
     # Write statistics to a file, to separate training and testing
     of = raw_input("Name the file to store learned statistics: ")
