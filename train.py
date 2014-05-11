@@ -10,8 +10,48 @@ import nltk
 import pdb
 import json
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
 
 def main():
+    # Print awesome intro (Comment this out if you are not on a system that uses ansi escape characters for printing colors
+    print bcolors.OKBLUE + " ___________  __    __    _______      ___      ___   __    ___  ___________  ______    _____  ___      "
+    print bcolors.HEADER + '("     _   ")/" |  | "\\  /"     "|    |"  \\    /"  | |" \\  |"  |("     _   ")/    " \\  (\\"   \\|"  \\     '
+    print bcolors.OKBLUE + " )__/  \\__/ (   (__)   )(  ______)     \\    \\  //  | ||  | ||  | )__/  \\\\__/// ____  \\ | \\   \\     |    "
+    print bcolors.OKGREEN + "    \\_ /     \\/      \\/  \\/    |       /\\   \\/     | |   | |   |    \\_  /  /  /    )  )|  \\    \\   |    "
+    print bcolors.WARNING + "    |   |    //  __  \\   // ___)_     |  \\         | |   |  \\  |___ |   | (  (____/ // |   \\    \\  |    "
+    print bcolors.FAIL + '    \\   |   (   (  )   )(       "|    |   \\    /   | /\\  |\\( \\_|   \\    |  \\        /  |    \\    \\ |    '
+    print bcolors.ENDC + '     \__|    \__|  |__/  \_______)    |___|\__/|___|(__\_|_)\_______)\__|   \\"_____/    \___|\____\)    '
+    print bcolors.OKBLUE + '   _______    ______    ________      ___________   __       _______    _______    _______   _______    "                                                                                                        '
+    print bcolors.ENDC + '  |   __ "\  /    " \  /"       )    ("     _   ") /""\     /" _   "|  /" _   "|  /"     "| /"      \   '
+    print bcolors.FAIL + "  (  |__)  )// ____  \(    \___/      )__/  \\__/  /    \   (  ( \___) (  ( \___) (  ______) |        |  "
+    print bcolors.WARNING + "  |   ____//  /    )  )\___  \           \\_  /   /' /\  \   \/ \       \/ \       \/    |   |_____/  )  "
+    print bcolors.OKGREEN + "  (|  /   (  (____/ //  __/   \\          |   |  //  __'  \  //  \ ___  //  \ ___  // ___)_  //      /   "
+    print bcolors.OKBLUE + ' /|__/ \   \        /  /" \    )         \   | /   /  \\   \ (    _( _|(    _(  _|(       "| |  __   \   '
+    print bcolors.HEADER + '(_______)   \\"_____/  (_______/           \__|(___/    \___)\_______)  \_______)  \_______)|__|  \___)  '
+    print bcolors.OKBLUE + "                                                                                                        "
+    print bcolors.FAIL + " _______  ___  ___                                                                                      "
+    print bcolors.FAIL + '|   _  "\\|"  \/"  |                                                                                     '
+    print bcolors.FAIL + "(  |_)   )\   \  /                                                                                      "
+    print bcolors.FAIL + "|      \/  \\  \/                                                                                       "
+    print bcolors.FAIL + "(|  _  \\  /   /                                                                                        "
+    print bcolors.FAIL + "|  |_)   )/   /                                                                                         "
+    print bcolors.FAIL + "(_______/|___/                                                                                          "
+    print bcolors.FAIL + "                                                                                                        "
+    print bcolors.FAIL + " ________    _______   _______    _______  __   ___      ___________  ______    ____  ____  _______     "
+    print bcolors.FAIL + '|"      "\  /"     "| /"      \\  /"     "||/"| /  ")    ("     _   ")/    " \  ("  _||_ " ||   _  "\    '
+    print bcolors.FAIL + "(   ___   )(  ______)|         |(  ______)(  |/   /      )__/  \\\\__/// ____  \ |   (  )   |(  |_)   )   "
+    print bcolors.FAIL + "|  \   ) || \/    |  |_____/   ) \/    |  |    __/          \\\\_ /  /  /    )  )(   |  |   )|      \/    "
+    print bcolors.FAIL + "(| (___\\ || // ___)_  //      /  // ___)_ (// _  \          |   | (  (____/ //  |  \__/ / |(  _   \\    "
+    print bcolors.FAIL + '|         )(       "||   __   \ (       "||  | \  \         \   |  \        /   ||  __  / ||  |_)   )   '
+    print bcolors.FAIL + '(________/  \_______)|__|  \___) \_______)(__|  \__)         \__|   \\"_____/   (__________)(_______/    '
+    print bcolors.ENDC + ""
+
     # Find all training documents
     inf = raw_input("Name the directory to search for training documents (enter a period for this directory): ")
     print inf
@@ -40,7 +80,7 @@ def main():
         sentences = sent_detector.tokenize(text)
         words = [nltk.word_tokenize(s) for s in sentences]
         tagged = [nltk.pos_tag(w) for w in words]
-        # Add sentence beginning tokens  
+        # Add sentence beginning tokens
         for i,t in enumerate(tagged):
             t.insert(0, ("<s>","<s>"))
         #print "tagged output of sentences in file:"
@@ -77,7 +117,7 @@ def main():
                 else:
                     trans[s[i][1]] = {}
                     trans[s[i][1]][tag] = 1.0
-                # Dictionary of counts words given tags            
+                # Dictionary of counts words given tags
                 if tag in emit:
                     if word in emit[tag]:
                         emit[tag][word] += 1.0
@@ -114,19 +154,18 @@ def main():
     #for tag in trans:
     #    if (tag not in startProb) and (tag != "<s>"):
     #        startProb[tag] = -500.0
-    del trans["<s>"]   
-    
-    # Sanity check: make sure all the probabilities add to one
-    #for key in emit:
-    #    summ = 0.0
-    #    for ley in emit[key]:
-    #        summ += exp(emit[key][ley])
-    #    if summ > 1.0:
-    #        print "WHOA BABY, THE SUM IS BIGGER THAN ONE FOR " + key + " " + str(summ)
-    #        print summ
-    #    else:
-    #        print key + " " + str(summ)
-            
+    del trans["<s>"]
+
+    for key in emit:
+        summ = 0.0
+        for ley in emit[key]:
+            summ += exp(emit[key][ley])
+        if summ > 1.0:
+            print "WHOA BABY, THE SUM IS BIGGER THAN ONE FOR " + key + " " + str(summ)
+            print summ
+        else:
+            print key + " " + str(summ)
+
     # Write statistics to a file, to separate training and testing
     of = raw_input("Name the file to store learned statistics: ")
     print of
@@ -150,6 +189,6 @@ def main():
     #for tag in tagTot:
     #    startProb[tag] = tagTot[tag]/numTags
     f.write(json.dumps(startProb))
-         
+
 if __name__ == "__main__":
     main()
