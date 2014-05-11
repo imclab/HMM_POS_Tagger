@@ -4,7 +4,7 @@ import sys
 import os
 #import operator # max(dictionary.iteritems(), key=operator.itemgetter(1))[0]
 import errno
-from math import log
+from math import log, exp
 import fnmatch
 import nltk
 import pdb
@@ -16,7 +16,7 @@ def main():
     inf = raw_input("Name the directory to search for training documents (enter a period for this directory): ")
     print inf
     matches = []
-    for root, dirnames, filenames in os.walk('.'):
+    for root, dirnames, filenames in os.walk(inf):
       for filename in fnmatch.filter(filenames, '*.txt'):
           matches.append(os.path.join(root, filename))
     # Make a sentence detector object
@@ -43,13 +43,13 @@ def main():
         # Add sentence beginning tokens  
         for i,t in enumerate(tagged):
             t.insert(0, ("<s>","<s>"))
-        print "tagged output of sentences in file:"
-        print tagged
+        #print "tagged output of sentences in file:"
+        #print tagged
         #pdb.set_trace()
         # Loop over each sentence in the document
         for s in tagged:
-            print "sentence is:"
-            print s
+            #print "sentence is:"
+            #print s
             i = 0
             le = len(s)
             # Loop over each word, tag pair in the sentence
@@ -61,8 +61,8 @@ def main():
                         lastForOne[tag] += 1.0
                     else:
                         lastForOne[tag] = 1.0
-                print "word and tag are:"
-                print word, tag
+                #print "word and tag are:"
+                #print word, tag
                 if tag in tagTot:
                     #pdb.set_trace()
                     tagTot[tag] += 1.0
@@ -113,10 +113,19 @@ def main():
     # Add in really small nonzero probabilities for all tags that never started a sentence
     #for tag in trans:
     #    if (tag not in startProb) and (tag != "<s>"):
-    #        startProb[tag] = 0.00000001
+    #        startProb[tag] = -500.0
     del trans["<s>"]   
     
-
+    for key in emit:
+        summ = 0.0
+        for ley in emit[key]:
+            summ += exp(emit[key][ley])
+        if summ > 1.0:
+            print "WHOA BABY, THE SUM IS BIGGER THAN ONE FOR " + key + " " + str(summ)
+            print summ
+        else:
+            print key + " " + str(summ)
+            
     # Write statistics to a file, to separate training and testing
     of = raw_input("Name the file to store learned statistics: ")
     print of
