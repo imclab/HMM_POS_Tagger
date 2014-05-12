@@ -15,8 +15,13 @@ python train.py
 ```
 You will be prompted to input the name of the directory which contains the training documents.
 
-Test the model on a test document:
+Use the model to tag a test document:
 ```
 python test.py
 ```
 You will be prompted to input the name of the test document, as well as the directory in which the HMM statistical models are stored.
+
+Use the model to tag a test document and score accuracy:
+```
+python testAccuracy.py
+```
