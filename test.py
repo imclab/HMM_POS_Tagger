@@ -139,12 +139,8 @@ def main():
     text = open(inf).read().strip()
     sentences = sent_detector.tokenize(text)
     words = [nltk.word_tokenize(s) for s in sentences]
-    #tagged = [nltk.pos_tag(w) for w in words]
-    # Add sentence beginning tokens  
-    #for i,t in enumerate(words):
-    #    t.insert(0, "<s>")  
-    #pdb.set_trace()
-
+    
+    # Tag the document using the learned HMM
     for s in words:
         prob, path = viterbi(s, tags, startP, trans, emit)
         print s
