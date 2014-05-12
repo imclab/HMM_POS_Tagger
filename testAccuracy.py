@@ -131,8 +131,7 @@ def main():
     tags = open(str(inf) + "/tags").read().splitlines()
     f = open(str(inf) + "/startProb.json").read()
     startP = json.loads(f)
-    
-    #pdb.set_trace()
+
     g = 1
     # Get the statistics from wherever they are saved
     while(1):
@@ -150,11 +149,6 @@ def main():
     text = open(inf).read().strip()
     sentences = sent_detector.tokenize(text)
     words = [nltk.word_tokenize(s) for s in sentences]
-    #tagged = [nltk.pos_tag(w) for w in words]
-    # Add sentence beginning tokens  
-    #for i,t in enumerate(words):
-    #    t.insert(0, "<s>")  
-    #pdb.set_trace()
 
     # Testing time!
 
@@ -173,8 +167,6 @@ def main():
         nltkPath = nltk.pos_tag(s)
         #print nltkPath
         confuse = evaluate(path, nltkPath, confuse)
-
-    #pdb.set_trace()
 
     ## Print out the results (confusion matrix) [it's really big so I just commented this out]
     #print "Mapping between tags and indices in confusion matrix:"
