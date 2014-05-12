@@ -2,7 +2,6 @@
 
 import sys
 import os
-#import operator # max(dictionary.iteritems(), key=operator.itemgetter(1))[0]
 import errno
 from math import log
 import fnmatch
