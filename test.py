@@ -9,7 +9,7 @@ import nltk
 import pdb
 import json
 
-# Python Viterbi implementation from Wikipedia
+# Python Viterbi implementation from Wikipedia, with added smooothing and handling of possible problems due to lack of data
 def viterbi(obs, states, start_p, trans_p, emit_p):
     V = [{}]
     path = {}
